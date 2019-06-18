@@ -1,0 +1,32 @@
+<Header @title={{model.title}}/>
+<div>{{#bs-form formLayout="horizontal"  as | form |}}
+    <ul class="list">
+        {{#each model.attributes.todos as |task|}}
+        <li class="list-item inputGroup">
+            {{input checked=(readonly task.status) type='checkbox' }}
+             {{!-- click=(action 'checkboxClicked') --}}
+            <label for={{task.id}}>{{task.title}}</label>
+            <button class="remove-button" {{action 'removeTodo' task}}>
+               Delete
+            </button>
+        </li>
+        {{/each}}
+    </ul>
+    {{/bs-form}}
+
+    <form {{action "preventDefault"}}>
+        <div class="add-task">
+            {{input type="text" 
+            value=newTodoTitle
+            onchange=(action (mut newTodoTitle))
+            placeholder="Add new task"  
+            }}
+
+            <button type="submit" {{action 'createTodo' newTodoTitle}}>
+                Add +
+            </button>
+        </div>
+    </form>
+</div>
+
+{{log 'model in todos' model}}

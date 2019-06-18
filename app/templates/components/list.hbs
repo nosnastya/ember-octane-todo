@@ -1,0 +1,24 @@
+<Header @title="My To Do list"/>
+<ul class="list">
+  {{#each model.lists.lists as |list|}}
+  <li class="list-item navbar-brand list-item_link">
+    {{#link-to "todos-item" list}} 
+      {{list.title}} 
+      <button class="remove-button" {{action 'removeList' list}}>Delete</button>
+    {{/link-to}}
+  </li>
+  {{/each}}
+</ul>
+<form>
+  <div class="add-task">
+    {{input type="text" 
+      value=newListTitle
+      onchange=(action (mut newListTitle))
+      placeholder="Add new task list"  
+      }}
+    <button type="submit" {{action 'createNewList' newListTitle}}>
+      Add +
+    </button>
+  </div>
+</form>
+{{!-- {{log 'model in list' model}} --}}
